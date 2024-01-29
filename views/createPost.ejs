@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="shortcut icon" href="#" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/css/fontawesome.css" />
+    <link rel="stylesheet" href="/css/templatemo-stand-blog.css" />
+    <link rel="stylesheet" href="/css/owl.css" />
+  </head>
+  <body>
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+      <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="/blog/post"
+            ><h2>Blog<em>.</em></h2></a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/all">Blog Entries</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/post">Blog Post</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/create">Create Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Banner Starts Here -->
+      <div class="heading-page header-text">
+        <section class="page-heading">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-content">
+                  <h4>Create Blog</h4>
+                  <h2>Join the conversation - Write your own blog post!</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Banner Ends Here -->
+
+      <section class="contact-us">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="down-contact">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="sidebar-item contact-form">
+                      <div class="sidebar-heading">
+                        <h2>publish your blog post</h2>
+                      </div>
+                      <div class="content">
+                        <form
+                          id="create-post"
+                          method="POST"
+                          action="/blog/create"
+                          enctype="multipart/form-data"
+                        >
+                          <% if (errors && errors.length > 0) { %>
+                          <div class="row">
+                            <div
+                              class="col-md-5 col-sm-12 text-danger border border-danger rounded"
+                              style="
+                                padding: 0px;
+                                margin: 20px;
+                                width: fit-content;
+                              "
+                            >
+                              <ul
+                                style="
+                                  list-style-type: disc;
+                                  padding-left: 30px;
+                                  text-transform: capitalize;
+                                "
+                              >
+                                <% errors.forEach(error => { %>
+                                <li><%= error %></li>
+                                <% }); %>
+                              </ul>
+                            </div>
+                          </div>
+                          <% } %>
+                          <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <input
+                                  name="title"
+                                  type="text"
+                                  id="title"
+                                  placeholder="Post Title"
+                                  required
+                                />
+                              </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <input
+                                  name="subheader"
+                                  type="text"
+                                  id="subheader"
+                                  placeholder="Post Subheader"
+                                  required
+                                />
+                              </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <input
+                                  value="<%= currentUser.email %>"
+                                  disabled
+                                />
+                                <input
+                                  type="hidden"
+                                  name="userEmail"
+                                  value="<%= currentUser.email %>"
+                                />
+                                <input
+                                  type="hidden"
+                                  name="userId"
+                                  value="<%= currentUser.id %>"
+                                />
+                              </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <input
+                                  name="imageName"
+                                  type="text"
+                                  id="imageName"
+                                  placeholder="Image Name"
+                                  required
+                                />
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <input
+                                  type="hidden"
+                                  name="MAX_FILE_SIZE"
+                                  value="10000000"
+                                />
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">Upload</span>
+                                  </div>
+                                  <div class="custom-file">
+                                    <input
+                                      type="file"
+                                      class="custom-file-input"
+                                      id="image"
+                                      name="image"
+                                      accept="image/*, video/*"
+                                      required
+                                    />
+                                    <label class="custom-file-label" for="image"
+                                      >Choose image file</label
+                                    >
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <textarea
+                                  name="content"
+                                  rows="30"
+                                  id="content"
+                                  placeholder="Write your article here"
+                                  required
+                                ></textarea>
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <button
+                                  type="submit"
+                                  id="form-submit"
+                                  class="main-button"
+                                  style="border-radius: 10px"
+                                >
+                                  Publish Article
+                                </button>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="copyright-text">
+              <p>
+                Blog. |
+                <a rel="nofollow" href="/blog/post" target="_parent">Post</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="/js/custom.js"></script>
+    <script src="/js/owl.js"></script>
+    <script src="/js/slick.js"></script>
+    <script src="/js/isotope.js"></script>
+    <script src="/js/accordions.js"></script>
+
+    <script language="text/Javascript">
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t) {
+        //declaring the array outside of the
+        if (!cleared[t.id]) {
+          // function makes it static and global
+          cleared[t.id] = 1; // you could use true and false, but that's more typing
+          t.value = ""; // with more chance of typos
+          t.style.color = "#fff";
+        }
+      }
+    </script>
+    <script>
+      // Get the file input element
+      const fileInput = document.querySelector("#image");
+
+      // Get the label element
+      const label = fileInput.nextElementSibling;
+
+      // Add an event listener to the file input
+      fileInput.addEventListener("change", () => {
+        // Get the name of the selected file
+        const fileName = fileInput.files[0].name;
+
+        // Update the label to display the file name
+        label.innerHTML = fileName;
+      });
+    </script>
+  </body>
+</html>

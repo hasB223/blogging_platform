@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= currentPost.title %></title>
+    <link rel="shortcut icon" href="#" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/css/fontawesome.css" />
+    <link rel="stylesheet" href="/css/templatemo-stand-blog.css" />
+    <link rel="stylesheet" href="/css/owl.css" />
+    <style>
+      .thumb-wrapper {
+        position: relative;
+      }
+
+      .like-button {
+        position: absolute;
+        bottom: 3%;
+        right: 3%;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+      <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="/blog/post"
+            ><h2>Blog<em>.</em></h2></a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/all">Blog Entries</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/blog/post">Blog Post</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/blog/create">Create Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Banner Starts Here -->
+
+      <div class="heading-page header-text">
+        <section class="page-heading">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="text-content">
+                  <h2><%= currentPost.title %></h2>
+                  <h4 class="text-lowercase fw-normal">
+                    by <strong><%= currentPost.userEmail %></strong>
+                  </h4>
+                </div>
+              </div>
+              <div class="position-relative">
+                <div
+                  class="col-lg-6 position-absolute top-100 start-100 translate-middle"
+                >
+                  <% if (pagination.hasNextPage) { %>
+                  <a
+                    href="/blog/post/<%= pagination.hasNextPage %>"
+                    class="btn btn-outline-light"
+                    >Newer Post</a
+                  >
+                  <% } %> <% if (pagination.hasPreviousPage) { %>
+                  <a
+                    href="/blog/post/<%= pagination.hasPreviousPage %>"
+                    class="btn btn-outline-light"
+                    >Older Post</a
+                  >
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Banner Ends Here -->
+      <!--BLOG POST SECTION STARTS-->
+      <section class="blog-posts grid-system">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="all-blog-posts">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="col-lg-12"></div>
+                    <div class="blog-post">
+                      <div class="thumb-wrapper">
+                        <div class="blog-thumb">
+                          <img
+                            src="<%= currentPost.imageUrl %>"
+                            alt="<%= currentPost.imageName %>"
+                          />
+                        </div>
+                        <!--LIKE BUTTON SECTION STARTS-->
+                        <button
+                          class="like-button btn btn-light btn-lg border rounded-pill opacity-85"
+                          data-post-id="<%= currentPost.id %>"
+                          data-user-id="<%= currentUser.id %>"
+                          data-user-liked="<%= userLiked %>"
+                          style="text-align: top"
+                        >
+                          <% if (userLiked) { %>
+                          <i
+                            class="fas fa-heart"
+                            style="font-size: 30px; color: rgb(181, 42, 66)"
+                          ></i>
+                          <% } else { %>
+                          <i class="far fa-heart" style="font-size: 30px"></i>
+                          <% } %> <%= likeCount %> Likes
+                        </button>
+                        <!--LIKE BUTTON SECTION ENDS-->
+                      </div>
+                      <div class="down-content">
+                        <h3><%= currentPost.title %></h3>
+                        <h4><%= currentPost.subheader %></h4>
+                        <ul class="post-info">
+                          <li>
+                            <a href="#"><%= currentPost.userEmail %></a>
+                          </li>
+                          <li>
+                            <a href="#"
+                              ><%=
+                              currentPost.createdAt.toDate().toLocaleDateString('en-US',
+                              { month: 'short', day: 'numeric', year: 'numeric'
+                              }) %></a
+                            >
+                          </li>
+                          <% if (currentPost.comments) { %>
+                          <li>
+                            <a href="#"
+                              ><%= currentPost.comments.length %> Comments</a
+                            >
+                          </li>
+                          <% } %>
+                          <li id="like-count">
+                            <a href="#"><%= likeCount %> Likes</a>
+                          </li>
+                        </ul>
+                        <p><%= currentPost.content %></p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--BLOG POST SECTION ENDS-->
+
+                  <!--COMMENTS SECTION STARTS-->
+                  <div class="col-lg-12">
+                    <div class="sidebar-item comments">
+                      <div class="sidebar-heading">
+                        <% if (currentPost.comments) { %>
+                        <h2>(<%= currentPost.comments.length %>) Comments</h2>
+                        <% } %>
+                      </div>
+                      <div class="content">
+                        <ul>
+                          <% currentPost.comments.forEach((comment) => { %>
+                          <li>
+                            <div
+                              class="row right-content border border-5 rounded-pill"
+                            >
+                              <h4>
+                                <%= comment.userEmail %><span
+                                  ><%=
+                                  comment.timestamp.toDate().toLocaleDateString('en-US',
+                                  { month: 'short', day: 'numeric', year:
+                                  'numeric' }) %></span
+                                >
+                              </h4>
+                              <p><%= comment.comment %></p>
+                            </div>
+                          </li>
+                          <br />
+                          <% }); %>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--COMMENTS SECTION ENDS-->
+                  <!--ADD COMMENTS SECTION STARTS-->
+                  <div class="col-lg-12">
+                    <div class="sidebar-item submit-comment">
+                      <div class="sidebar-heading">
+                        <h2>Your comment</h2>
+                      </div>
+                      <div class="content">
+                        <form id="comment" action="/blog/comment" method="POST">
+                          <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                              <fieldset>
+                                <input
+                                  value="<%= currentUser.email %>"
+                                  disabled
+                                />
+                                <input
+                                  type="hidden"
+                                  name="userId"
+                                  value="<%= currentUser.id %>"
+                                />
+                                <input
+                                  type="hidden"
+                                  name="userEmail"
+                                  value="<%= currentUser.email %>"
+                                />
+                                <input
+                                  type="hidden"
+                                  name="postId"
+                                  value="<%= currentPost.id %>"
+                                />
+                              </fieldset>
+                              <% if (errors && errors.length > 0) { %>
+                              <div class="row">
+                                <div
+                                  class="col-md-12 col-sm-12 text-danger border border-danger rounded"
+                                  style="
+                                    padding: 0px;
+                                    margin: 20px;
+                                    width: fit-content;
+                                  "
+                                >
+                                  <ul
+                                    style="
+                                      list-style-type: disc;
+                                      padding-left: 30px;
+                                    "
+                                  >
+                                    <% errors.forEach(error => { %>
+                                    <li><%= error %></li>
+                                    <% }); %>
+                                  </ul>
+                                </div>
+                              </div>
+                              <% } %>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <textarea
+                                  name="comment"
+                                  rows="6"
+                                  id="message"
+                                  placeholder="Type your comment"
+                                  required=""
+                                ></textarea>
+                              </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                              <fieldset>
+                                <button
+                                  type="submit"
+                                  id="form-submit"
+                                  class="main-button"
+                                >
+                                  Submit
+                                </button>
+                              </fieldset>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!--ADD COMMENTS SECTION ENDS-->
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="sidebar">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="sidebar-item recent-posts">
+                      <div class="sidebar-heading">
+                        <h2>Recent Posts</h2>
+                      </div>
+                      <div class="content">
+                        <ul>
+                          <% posts.slice(0,5).forEach((post) => { %>
+                            <li> 
+                              <a href="/blog/post/<%= post.id %>"><h5><%= post.title %></h5><span><%= post.createdAt.toDate().toLocaleDateString('en-US', {
+                                month: 'short', day: 'numeric', year:'numeric' })%></span></a>
+                            </li>
+                            <%})  %>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="copyright-text">
+              <p>
+                Blog. |
+                <a rel="nofollow" href="/blog/post" target="_parent">Post</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="/js/custom.js"></script>
+    <script src="/js/owl.js"></script>
+    <script src="/js/slick.js"></script>
+    <script src="/js/isotope.js"></script>
+    <script src="/js/accordions.js"></script>
+
+    <script language="text/Javascript">
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t) {
+        //declaring the array outside of the
+        if (!cleared[t.id]) {
+          // function makes it static and global
+          cleared[t.id] = 1; // you could use true and false, but that's more typing
+          t.value = ""; // with more chance of typos
+          t.style.color = "#fff";
+        }
+      }
+    </script>
+  </body>
+  <script>
+    try {
+      //Function to handle like button click
+      const likeButton = document.querySelector(".like-button");
+      likeButton.addEventListener("click", async (event) => {
+        const postId = likeButton.getAttribute("data-post-id");
+        const userId = likeButton.getAttribute("data-user-id");
+        const previousLiked =
+          likeButton.getAttribute("data-user-liked") === "true";
+        // Toggle the value of the data-user-liked attribute
+        const newLiked = previousLiked ? false : true;
+
+        try {
+          const response = await fetch("/blog/like", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ postId, userId, newLiked }),
+          });
+          const data = await response.json();
+          const { likeCount, userLiked: newUserLiked } = data;
+          likeButton.innerHTML = `
+        ${
+          newUserLiked
+            ? '<i class="fas fa-heart" style="font-size: 30px; color:  rgb(181, 42, 66)"></i>'
+            : '<i class="far fa-heart" style="font-size: 30px;"></i>'
+        }
+        ${likeCount} Likes
+      `;
+          const likeCountElement = document.getElementById("like-count");
+          likeCountElement.innerHTML = `${likeCount} Likes`;
+
+          likeButton.dataset.userLiked = newUserLiked;
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  </script>
+</html>
