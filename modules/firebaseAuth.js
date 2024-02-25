@@ -7,12 +7,12 @@ const { handleAuthError } = require("../modules/errorHandler");
 
 // Firebase configuration for Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyBeyEDoap7l2c0bSWSNHKKaCGWGAXBHzfs",
-  authDomain: "bloggingplatform-c0890.firebaseapp.com",
-  projectId: "bloggingplatform-c0890",
-  storageBucket: "bloggingplatform-c0890.appspot.com",
-  messagingSenderId: "360519859749",
-  appId: "1:360519859749:web:442f7d6754401ac27ec9cc",
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
 };
 
 // Initialize Firebase-admin
@@ -55,7 +55,7 @@ const {
 } = require("firebase/storage");
 
 // storage folder path: gs://bloggingplatform-c0890.appspot.com
-const storageBucketURL = "bloggingplatform-c0890.appspot.com";
+const storageBucketURL = "";
 
 // Initialize services
 const db = getFirestore();
